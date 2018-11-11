@@ -1,1 +1,1 @@
-![alt text](/Result.png)
+![alt text](Result.png)
