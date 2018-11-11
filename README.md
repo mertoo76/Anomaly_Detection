@@ -8,6 +8,8 @@
 
 3-)data transformation with aggregated over time
 
-4-)data transformation for online EMD ANN
+4-)data transformation with aggregated over time LSTM
 
-5-)data transformation for online EMD LSTM
+5-)data transformation for online EMD ANN
+
+6-)data transformation for online EMD LSTM
