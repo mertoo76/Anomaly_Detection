@@ -52,13 +52,13 @@ x=np.load("xData.npy")
 #labels
 y=kdd.target.copy()
 normal=y[0]
-for i in range(newLen):
+for i in range(x.shape[0]):
     if y[i] != normal:
         #print(y_prep[i])
         y[i]='attack'
     else:
         y[i]='normal'
-y=y[:newLen]
+y=y[:x.shape[0]]
 #1 normal, 0 attack
 labelencoder_y = LabelEncoder()
 y = labelencoder_y.fit_transform(y)

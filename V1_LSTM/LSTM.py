@@ -10,7 +10,7 @@ import numpy as np
 import pylab as plt
 
 from sklearn import datasets
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
 
 #Load dataset
