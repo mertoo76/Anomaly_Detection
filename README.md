@@ -59,7 +59,7 @@ n=data_size/window_size - 1
 | ...  | ...  |  ...  | ...  | ...  | ...  |
 
 ## Data Representation in 2D
-![alt text](img/PCA.png)
+![alt text](IMG/PCA.png)
 
 1=normal, 0=attack
 
@@ -68,42 +68,42 @@ n=data_size/window_size - 1
 
 #### Smurf Attack (DOS)
 
-![alt text](img/f1StartSmurf.png) 
-![alt text](img/f1EndSmurf.png)
+![alt text](IMG/f1StartSmurf.png) 
+![alt text](IMG/f1EndSmurf.png)
 
 
-![alt text](img/f2StartSmurf.png) 
-![alt text](img/f2EndSmurf.png)
+![alt text](IMG/f2StartSmurf.png) 
+![alt text](IMG/f2EndSmurf.png)
 
-![alt text](img/f3StartSmurf.png) 
-![alt text](img/f3EndSmurf.png)
+![alt text](IMG/f3StartSmurf.png) 
+![alt text](IMG/f3EndSmurf.png)
 
-![alt text](img/f4StartSmurf.png) 
-![alt text](img/f4EndSmurf.png)
+![alt text](IMG/f4StartSmurf.png) 
+![alt text](IMG/f4EndSmurf.png)
 
-![alt text](img/f5StartSmurf.png) 
-![alt text](img/f5EndSmurf.png)
+![alt text](IMG/f5StartSmurf.png) 
+![alt text](IMG/f5EndSmurf.png)
 
-![alt text](img/f6StartSmurf.png) 
-![alt text](img/f6EndSmurf.png)
+![alt text](IMG/f6StartSmurf.png) 
+![alt text](IMG/f6EndSmurf.png)
 
 #### ipSweep Attack (probing: surveillance and other probing, e.g., port scanning.)
 
-![alt text](img/f1StartSweep.png) 
-![alt text](img/f1EndSweep.png)
+![alt text](IMG/f1StartSweep.png) 
+![alt text](IMG/f1EndSweep.png)
 
 
-![alt text](img/f2StartSweep.png) 
-![alt text](img/f2EndSweep.png)
+![alt text](IMG/f2StartSweep.png) 
+![alt text](IMG/f2EndSweep.png)
 
-![alt text](img/f3StartSweep.png) 
-![alt text](img/f3EndSweep.png)
+![alt text](IMG/f3StartSweep.png) 
+![alt text](IMG/f3EndSweep.png)
 
-![alt text](img/f4StartSweep.png) 
-![alt text](img/f4EndSweep.png)
+![alt text](IMG/f4StartSweep.png) 
+![alt text](IMG/f4EndSweep.png)
 
-![alt text](img/f5StartSweep.png) 
-![alt text](img/f5EndSweep.png)
+![alt text](IMG/f5StartSweep.png) 
+![alt text](IMG/f5EndSweep.png)
 
-![alt text](img/f6StartSweep.png) 
-![alt text](img/f6EndSweep.png)
+![alt text](IMG/f6StartSweep.png) 
+![alt text](IMG/f6EndSweep.png)
