@@ -35,8 +35,8 @@ t=np.arange(0,x.shape[0]*2,2)
 #Smurf(dos):startBorder=7750 - endBorder=8000 , startBorder=11375 - endBorder=11625 
 #startBorder=50900 - endBorder=51000, startBorder=51950 - endBorder=52050
 #ipsweep: startBorder=52130 - endBorder=52230, startBorder=52550 - endBorder=52650
-startBorder=52550
-endBorder=52650
+startBorder=52130
+endBorder=52230
 for i in range(x.shape[1]):
     plt.plot(t[startBorder:endBorder],x[startBorder:endBorder,i],)
     j=0
