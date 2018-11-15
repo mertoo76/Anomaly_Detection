@@ -2,17 +2,32 @@
 
 ## ToDo
 
-1-)original data with ANN 6 feature
+1-)original data with LSTM 6 feature
 
-2-)original data with LSTM 6 feature
+2-)LSTM with V2 (100 window size)
 
-3-)data transformation with aggregated over time
+3-)LSTM with v2 (1000 window size)
 
-4-)data transformation with aggregated over time LSTM
+4-) Event point model for original data
 
-5-)data transformation for online EMD ANN
+5-) Event point model for v2 ann
 
-6-)data transformation for online EMD LSTM
+6-) Event point model for v2 LSTM
+
+
+## Time Series Features
+
+src_bytes: number of data bytes from source to destination
+
+dst_bytes: number of data bytes from destination to source 
+
+count: number of connections to the same host as the current connection in the past two seconds 
+
+srv_count: number of connections to the same service as the current connection in the past two seconds 
+
+dst_host_count:
+
+dst_host_srv_count:
 
 ## Data transformation
 
@@ -35,10 +50,60 @@ n=data_size/window_size - 1
 | Feature6-windown-IMF2:  | value  |  value  | value  | value  |
 
 
-#### 1-) V2
+#### 2-) V2
 
 | T |   Feature1-IMF1          |     Feature1-IMF2          |    ...        | Feature6-IMF1    | Feature6-IMF2    |
 | ------------- | ------------- |  ------------- | ------------- | ------------- | ------------- |
 | 0  | value  |  value  | value  | value  | value  |
 | 2  | value  |  value  | value  | value  | value  |
 | ...  | ...  |  ...  | ...  | ...  | ...  |
+
+## Data Representation in 2D
+![alt text](img/PCA.png)
+
+1=normal, 0=attack
+
+
+## Occurence Of Attacks In KDD Cup Dataset
+
+#### Smurf Attack (DOS)
+
+![alt text](img/f1StartSmurf.png) 
+![alt text](img/f1EndSmurf.png)
+
+
+![alt text](img/f2StartSmurf.png) 
+![alt text](img/f2EndSmurf.png)
+
+![alt text](img/f3StartSmurf.png) 
+![alt text](img/f3EndSmurf.png)
+
+![alt text](img/f4StartSmurf.png) 
+![alt text](img/f4EndSmurf.png)
+
+![alt text](img/f5StartSmurf.png) 
+![alt text](img/f5EndSmurf.png)
+
+![alt text](img/f6StartSmurf.png) 
+![alt text](img/f6EndSmurf.png)
+
+#### ipSweep Attack (probing: surveillance and other probing, e.g., port scanning.)
+
+![alt text](img/f1StartSweep.png) 
+![alt text](img/f1EndSweep.png)
+
+
+![alt text](img/f2StartSweep.png) 
+![alt text](img/f2EndSweep.png)
+
+![alt text](img/f3StartSweep.png) 
+![alt text](img/f3EndSweep.png)
+
+![alt text](img/f4StartSweep.png) 
+![alt text](img/f4EndSweep.png)
+
+![alt text](img/f5StartSweep.png) 
+![alt text](img/f5EndSweep.png)
+
+![alt text](img/f6StartSweep.png) 
+![alt text](img/f6EndSweep.png)

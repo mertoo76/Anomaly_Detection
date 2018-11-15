@@ -5,7 +5,7 @@ Created on Mon Nov  5 16:23:23 2018
 @author: user
 """
 
-# 4 -> src bytes , 5 -> dst bytes, 22 -> cpunt, 23-> srv_count, 31-> dst_host_count, 32-> dst_host_srv_count
+# 4 -> src bytes , 5 -> dst bytes, 22 -> count, 23-> srv_count, 31-> dst_host_count, 32-> dst_host_srv_count
 
 from PyEMD import EMD
 import numpy as np
