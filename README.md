@@ -8,11 +8,13 @@
 
 3-)LSTM with v2 (1000 window size)
 
-4-) Event point model for original data
+4-)ANN with v2 (1000 window size)
 
-5-) Event point model for v2 ann
+5-) Event point model for original data
 
-6-) Event point model for v2 LSTM
+6-) Event point model for v2 ann
+
+7-) Event point model for v2 LSTM
 
 
 ## Time Series Features
