@@ -37,20 +37,8 @@ y_prep = labelencoder_y.fit_transform(y_prep)
 
 #prepare input for LSTM
 batch_size=100
-y=np.ones([int(y_prep.shape[0]/batch_size),1],dtype=int)
-window=int(y_prep.shape[0]/batch_size)
-
-i=0
-while i<window:
-    att=1
-    for k in range(i*batch_size,(i+1)*batch_size):
-        #whic means if attack
-        if y_prep[k] == 0:
-            att=0
-    y[i]=att           
-    i=i+1
-
-
+y =y_prep[:int(y_prep.shape[0]/batch_size)*batch_size]
+y = y.reshape((int(y.shape[0]/batch_size),batch_size))
 x = x.reshape((int(x.shape[0]/batch_size),batch_size,x.shape[1]))
 
 #splitting the dataset into the training set and test set
@@ -70,7 +58,7 @@ model.add(LSTM(64,batch_input_shape=(None,100,12),return_sequences=True))
 model.add(Dropout(0.2))
 model.add(LSTM(32,return_sequences=False))
 model.add(Dropout(0.2))
-model.add(Dense(1,activation='sigmoid',init = 'uniform'))
+model.add(Dense(100,activation='sigmoid',init = 'uniform'))
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 model.summary()
 
@@ -80,6 +68,10 @@ model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 # Predicting the Test set results
 y_pred = model.predict(x_test)
 y_pred = (y_pred > 0.5)
+
+y_pred=y_pred.reshape((y_pred.shape[0]*y_pred.shape[1]))
+y_test=y_test.reshape((y_test.shape[0]*y_test.shape[1]))
+
 
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
