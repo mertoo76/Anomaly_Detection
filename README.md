@@ -2,19 +2,15 @@
 
 ## ToDo
 
-1-)original data with LSTM 6 feature
+1-) Event point model for original data
 
-2-)LSTM with V2 (100 window size)
+2-) Event point model for v2 ann
 
-3-)LSTM with v2 (1000 window size)
+3-) Event point model for v2 LSTM
 
-4-)ANN with v2 (1000 window size)
+4-) Test with Original KDD Test-Validation data
 
-5-) Event point model for original data
-
-6-) Event point model for v2 ann
-
-7-) Event point model for v2 LSTM
+5-) NSL-KDD
 
 
 ## Time Series Features
