@@ -8,10 +8,17 @@
 
 3-) Event point model for v2 LSTM
 
-4-) Test with Original KDD Test-Validation data
+4-) Test with Original KDD Test-Validation data(10 percent data)
 
-5-) NSL-KDD
+5-) Do everything for NSL-KDD
 
+## Dataset
+
+#### KDD Dataset:
+This dataset is prepared by Stolfo and is built based on the data captured in DARPA’98 IDS evaluation program. DARPA’98 is about 4 gigabytes of compressed raw (binary) tcpdump data of 7 weeks of network trafﬁc, which can be processed into about 5 million connection records, each with about 100 bytes. The two weeks of test data have around 2 million connection records. KDD training dataset consists of approximately 4,900,000 single connection vectors each of which contains 41 features and is labeled as either normal or an attack, with exactly one speciﬁc attack type. 
+
+#### NSL-KDD:
+NSL-KDD is a data set suggested to solve some of the inherent problems of the KDD'99 data set like redundant data, duplicate records.
 
 ## Time Series Features
 
