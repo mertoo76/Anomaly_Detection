@@ -22,18 +22,36 @@ kdd=datasets.fetch_kddcup99(percent10=True)
 x=np.load("../DataV2/Window100/xData.npy")
 
 #labels
-y=kdd.target.copy()
-normal=y[0]
-for i in range(x.shape[0]):
-    if y[i] != normal:
+y_prep=kdd.target.copy()
+normal=y_prep[0]
+for i in range(len(y_prep)):
+    if y_prep[i] != normal:
         #print(y_prep[i])
-        y[i]='attack'
+        y_prep[i]='attack'
     else:
-        y[i]='normal'
-y=y[:x.shape[0]]
+        y_prep[i]='normal'
 #1 normal, 0 attack
 labelencoder_y = LabelEncoder()
-y = labelencoder_y.fit_transform(y)
+y_prep = labelencoder_y.fit_transform(y_prep)
+
+
+#prepare input for LSTM
+batch_size=100
+y=np.ones([int(y_prep.shape[0]/batch_size),1],dtype=int)
+window=int(y_prep.shape[0]/batch_size)
+
+i=0
+while i<window:
+    att=1
+    for k in range(i*batch_size,(i+1)*batch_size):
+        #whic means if attack
+        if y_prep[k] == 0:
+            att=0
+    y[i]=att           
+    i=i+1
+
+
+x = x.reshape((int(x.shape[0]/batch_size),batch_size,x.shape[1]))
 
 #splitting the dataset into the training set and test set
 from sklearn.cross_validation import train_test_split
@@ -46,11 +64,9 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense,Embedding, LSTM, Dropout
 
-x_train = x_train.reshape((x_train.shape[0],x_train.shape[1],1))
-x_test = x_test.reshape((x_test.shape[0],x_test.shape[1],1))
 
 model = Sequential()
-model.add(LSTM(64,batch_input_shape=(None,12,1),return_sequences=True))
+model.add(LSTM(64,batch_input_shape=(None,100,12),return_sequences=True))
 model.add(Dropout(0.2))
 model.add(LSTM(32,return_sequences=False))
 model.add(Dropout(0.2))
@@ -58,11 +74,11 @@ model.add(Dense(1,activation='sigmoid',init = 'uniform'))
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 model.summary()
 
-model.fit(x_train, y_train, batch_size = 12, nb_epoch = 20)
+model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 
 
 # Predicting the Test set results
-y_pred = classifier.predict(x_test)
+y_pred = model.predict(x_test)
 y_pred = (y_pred > 0.5)
 
 # Making the Confusion Matrix
