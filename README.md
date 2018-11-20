@@ -12,6 +12,9 @@
 
 5-) Do everything for NSL-KDD
 
+6-) Do everything for KOAD
+
+
 ## Dataset
 
 #### KDD Dataset:
