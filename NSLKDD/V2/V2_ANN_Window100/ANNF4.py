@@ -56,6 +56,7 @@ y_test = labelencoder_y.fit_transform(y_test)
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.utils import plot_model
 
 # Initialising the ANN
 classifier = Sequential()
@@ -74,6 +75,8 @@ classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+plot_model(classifier, show_shapes=True, to_file='model.png')
 
 # Fitting the ANN to the Training set
 classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)

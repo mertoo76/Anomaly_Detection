@@ -72,7 +72,7 @@ x_test = x_test.reshape((int(x_test.shape[0]/batch_size),batch_size,x_test.shape
 import keras
 from keras.models import Sequential
 from keras.layers import Dense,Embedding, LSTM, Dropout
-
+from keras.utils import plot_model
 
 model = Sequential()
 model.add(LSTM(64,batch_input_shape=(None,100,8),return_sequences=True))
@@ -82,6 +82,8 @@ model.add(Dropout(0.2))
 model.add(Dense(100,activation='sigmoid',init = 'uniform'))
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 model.summary()
+
+plot_model(model, show_shapes=True, to_file='model.png')
 
 model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 

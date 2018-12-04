@@ -50,7 +50,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, rando
 #####################################################################################################
 from keras.models import Sequential
 from keras.layers import Dense, Embedding, LSTM, Dropout
-
+from keras.utils import plot_model
 
 
 model = Sequential()
@@ -61,6 +61,9 @@ model.add(Dropout(0.2))
 model.add(Dense(100,activation='sigmoid',init = 'uniform'))
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 model.summary()
+
+plot_model(model, show_shapes=True, to_file='model.png')
+
 
 model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 
