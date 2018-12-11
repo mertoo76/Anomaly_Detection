@@ -2,17 +2,15 @@
 
 ## ToDo
 
-1-) Event point model for original data
+1-)EMD Check
 
-2-) Event point model for v2 ann
+2-)Pipeline Fix(Nodes,Layers -(normalization between 0-1 or differetn Relu function))
 
-3-) Event point model for v2 LSTM
+3-) Do everything with new model.
 
-4-) Test with Original KDD Test-Validation data(10 percent data)
+4-)instantaneous frequency
 
-5-) Do everything for NSL-KDD
 
-6-) Do everything for KOAD
 
 
 
