@@ -18,10 +18,7 @@ from sklearn.preprocessing import LabelEncoder
 x_train=np.load("../../DataV2/Window100/xData.npy")
 x_test=np.load("../../DataV2/testData/xDataTest.npy")
 
-first_imf=[0,2,4,6]
 
-x_train=x_train[:,first_imf]
-x_test=x_test[:,first_imf]
 
 tmp=pd.read_csv('../../../Data/kddcup.data_10_percent_corrected',',')
 y_train = tmp.iloc[:, 41].values
@@ -66,7 +63,7 @@ from keras.utils import to_categorical
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 4))
+classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 8))
 
 classifier.add(Dropout(0.2))
 
@@ -81,7 +78,7 @@ classifier.add(Dense(output_dim = 2, init = 'uniform', activation = 'softmax'))
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
-#plot_model(classifier, show_shapes=True, to_file='../Model6_w100_FirstIMF.png')
+#plot_model(classifier, show_shapes=True, to_file='../Model6_w100_IMFResidual.png')
 
 # Fitting the ANN to the Training set
 classifier.fit(x_train, to_categorical(y_train), batch_size = 10, nb_epoch = 20)

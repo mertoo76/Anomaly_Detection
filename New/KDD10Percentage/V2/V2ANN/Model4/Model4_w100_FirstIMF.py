@@ -59,36 +59,34 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense,Dropout
 from keras.utils import plot_model
-from keras.utils import to_categorical
-
 
 # Initialising the ANN
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 4))
+classifier.add(Dense(output_dim = 30, init = 'uniform', activation = 'relu', input_dim = 4))
 
 classifier.add(Dropout(0.2))
 
 #Adding a second hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu'))
+classifier.add(Dense(output_dim = 30, init = 'uniform', activation = 'relu'))
 
 classifier.add(Dropout(0.2))
 
 # Adding the output layer
-classifier.add(Dense(output_dim = 2, init = 'uniform', activation = 'softmax'))
+classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 
 # Compiling the ANN
-classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-#plot_model(classifier, show_shapes=True, to_file='../Model6_w100_FirstIMF.png')
+#plot_model(classifier, show_shapes=True, to_file='../Model4_w100_FirstIMF.png')
 
 # Fitting the ANN to the Training set
-classifier.fit(x_train, to_categorical(y_train), batch_size = 10, nb_epoch = 20)
+classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)
 
 # Predicting the Test set results
 y_pred = classifier.predict(x_test)
-y_pred = np.argmax(y_pred, axis=1)
+y_pred = (y_pred > 0.5)
 
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix

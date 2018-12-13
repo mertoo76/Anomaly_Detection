@@ -7,7 +7,7 @@ activation function output layer = sigmoid
 
 ![alt text](Model1Result.png)
 
-## Model 1
+## Model 2
 ![alt text](model2.png)
 
 activation function between hidden layer = relu
