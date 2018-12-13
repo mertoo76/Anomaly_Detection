@@ -2,13 +2,11 @@
 
 ## ToDo
 
-1-)EMD Check
+1-) 2 IMFs -> ANN(Model4 and Model6) LSTM(Model1)
 
-2-)Pipeline Fix(Nodes,Layers -(normalization between 0-1 or differetn Relu function))
+2-)Event model evaluation
 
-3-) Do everything with new model.
-
-4-)instantaneous frequency
+3-)instantaneous frequency
 
 
 
