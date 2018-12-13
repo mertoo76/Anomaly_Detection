@@ -44,8 +44,8 @@ activation function output layer = softmax
 ![alt text](Model6_w100_IMFResidual_Result.png)
 
 
-## Model7-Window100-First IMF and Residual
-![alt text](Model7_w100_IMFResidual.png)
+## Model7-Window100-First IMF and Residual LeakyReLU
+![alt text](Model7_w100_IMFResidual_LRelu.png)
 
 activation function between hidden layer = LeakyReLU
 
@@ -53,6 +53,6 @@ activation function output layer = sigmoid
 
 8/16/16/1
 
-![alt text](Model7_w100_IMFResidual_Result.png)
+![alt text](Model7_w100_IMFResidual_LRelu_Result.png)
 
 
