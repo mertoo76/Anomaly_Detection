@@ -5,7 +5,7 @@ Created on Tue Dec  4 16:13:49 2018
 @author: user
 """
 
-
+from PyEMD import EMD
 import numpy as np
 import pylab as plt
 import pandas as pd
@@ -57,21 +57,16 @@ from keras.models import Sequential
 from keras.layers import Dense,Dropout
 from keras.utils import plot_model
 
-from keras.layers import LeakyReLU
-
 # Initialising the ANN
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 8))
-
+classifier.add(Dense(output_dim = 30, init = 'uniform', activation = 'relu', input_dim = 8))
 
 classifier.add(Dropout(0.2))
 
 #Adding a second hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu'))
-
-
+classifier.add(Dense(output_dim = 30, init = 'uniform', activation = 'relu'))
 
 classifier.add(Dropout(0.2))
 
@@ -81,7 +76,7 @@ classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-#plot_model(classifier, show_shapes=True, to_file='../Model7_w100_IMFResidual.png')
+#plot_model(classifier, show_shapes=True, to_file='../Model4_w100_IMFResidual.png')
 
 # Fitting the ANN to the Training set
 classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec  4 16:13:49 2018
+Created on Tue Dec  4 17:27:14 2018
 
 @author: user
 """
@@ -9,16 +9,20 @@ Created on Tue Dec  4 16:13:49 2018
 import numpy as np
 import pylab as plt
 import pandas as pd
-
+from sklearn import datasets
 from sklearn.preprocessing import LabelEncoder
 
 
 
+
+
+#Load V2 data with window size 100
+#x shape[0]= total window*IMF*feature= 4939*2*6
 #load x values
 x_train=np.load("../../DataV2/Window100/xData.npy")
 x_test=np.load("../../DataV2/testData/xDataTest.npy")
 
-
+#labels
 
 tmp=pd.read_csv('../../../Data/kddcup.data_10_percent_corrected',',')
 y_train = tmp.iloc[:, 41].values
@@ -35,6 +39,7 @@ y_train=y_train[:x_train.shape[0]]
 labelencoder_y = LabelEncoder()
 y_train = labelencoder_y.fit_transform(y_train)
 
+#Test 
 tmp=pd.read_csv('../../../Data/corrected',',')
 y_test = tmp.iloc[:, 41].values
 
@@ -51,44 +56,47 @@ y_test=y_test[:x_test.shape[0]]
 y_test = labelencoder_y.fit_transform(y_test)
 
 
+
+#prepare input for LSTM
+batch_size=100
+#y =y_prep[:int(y_prep.shape[0]/batch_size)*batch_size]
+y_train = y_train.reshape((int(y_train.shape[0]/batch_size),batch_size))
+y_test = y_test.reshape((int(y_test.shape[0]/batch_size),batch_size))
+
+x_train = x_train.reshape((int(x_train.shape[0]/batch_size),batch_size,x_train.shape[1]))
+x_test = x_test.reshape((int(x_test.shape[0]/batch_size),batch_size,x_test.shape[1]))
+
+
+
+
 # Importing the Keras libraries and packages
 import keras
 from keras.models import Sequential
-from keras.layers import Dense,Dropout
+from keras.layers import Dense,Embedding, LSTM, Dropout
 from keras.utils import plot_model
 
-from keras.layers import LeakyReLU
 
-# Initialising the ANN
-classifier = Sequential()
+model = Sequential()
+model.add(LSTM(32,batch_input_shape=(None,100,8),return_sequences=True))
+model.add(Dropout(0.2))
+model.add(LSTM(32,return_sequences=False))
+model.add(Dropout(0.2))
+model.add(Dense(100,activation='sigmoid',init = 'uniform'))
+model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+model.summary()
 
-# Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 8))
+plot_model(model, show_shapes=True, to_file='../Model2_w100_IMFResidual.png')
 
+model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 
-classifier.add(Dropout(0.2))
-
-#Adding a second hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu'))
-
-
-
-classifier.add(Dropout(0.2))
-
-# Adding the output layer
-classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
-
-# Compiling the ANN
-classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
-
-#plot_model(classifier, show_shapes=True, to_file='../Model7_w100_IMFResidual.png')
-
-# Fitting the ANN to the Training set
-classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)
 
 # Predicting the Test set results
-y_pred = classifier.predict(x_test)
+y_pred = model.predict(x_test)
 y_pred = (y_pred > 0.5)
+
+y_pred=y_pred.reshape((y_pred.shape[0]*y_pred.shape[1]))
+y_test=y_test.reshape((y_test.shape[0]*y_test.shape[1]))
+
 
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix

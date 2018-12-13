@@ -63,15 +63,16 @@ from keras.layers import LeakyReLU
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 8))
+classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'linear', input_dim = 8))
 
+classifier.add(LeakyReLU(alpha=0.01))
 
 classifier.add(Dropout(0.2))
 
 #Adding a second hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu'))
+classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'linear'))
 
-
+classifier.add(LeakyReLU(alpha=0.01))
 
 classifier.add(Dropout(0.2))
 
@@ -81,7 +82,7 @@ classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-#plot_model(classifier, show_shapes=True, to_file='../Model7_w100_IMFResidual.png')
+#plot_model(classifier, show_shapes=True, to_file='../Model7_w100_IMFResidual_LRelu.png')
 
 # Fitting the ANN to the Training set
 classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)
