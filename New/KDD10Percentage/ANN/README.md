@@ -64,7 +64,7 @@ activation function output layer = softmax
 
 ![alt text](Model6Result.png)
 
-## Model 6
+## Model 7
 ![alt text](model7.png)
 
 activation function between hidden layer = relu
