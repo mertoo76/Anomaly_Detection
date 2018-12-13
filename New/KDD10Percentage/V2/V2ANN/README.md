@@ -7,8 +7,10 @@ activation function output layer = sigmoid
 
 8/60/60/60/1
 
+![alt text](Model1_w100_IMFResidual_Result.png)
+
 ## Model1-Window100-First IMF and Residual with Leaky Relu
-![alt text](Model1_w100_IMFResidual.png)
+![alt text](Model1_w100_IMFResidual_LRelu.png)
 
 activation function between hidden layer = leaky relu
 
@@ -17,7 +19,7 @@ activation function output layer = sigmoid
 8/60/60/60/1
 
 
-![alt text](Model1_w100_IMFResidual_Result.png)
+![alt text](Model1_w100_IMFResidual_LRelu_Result.png)
 
 ## Model2-Window100-First IMF and Residual
 ![alt text](Model2_w100_IMFResidual.png)
