@@ -82,7 +82,7 @@ classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-#plot_model(classifier, show_shapes=True, to_file='../Model7_w100_IMFResidual.png')
+#plot_model(classifier, show_shapes=True, to_file='../Model7_w100_IMFResidual_LRelu.png')
 
 # Fitting the ANN to the Training set
 classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)
