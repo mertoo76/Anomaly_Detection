@@ -57,16 +57,22 @@ from keras.models import Sequential
 from keras.layers import Dense,Dropout
 from keras.utils import plot_model
 
+from keras.layers import LeakyReLU
+
 # Initialising the ANN
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu', input_dim = 8))
+classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'linear', input_dim = 8))
+
+classifier.add(LeakyReLU(alpha=0.01))
 
 classifier.add(Dropout(0.2))
 
 #Adding a second hidden layer
-classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'relu'))
+classifier.add(Dense(output_dim = 16, init = 'uniform', activation = 'linear'))
+
+classifier.add(LeakyReLU(alpha=0.01))
 
 classifier.add(Dropout(0.2))
 
