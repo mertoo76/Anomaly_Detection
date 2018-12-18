@@ -112,3 +112,13 @@ n=data_size/window_size - 1
 
 ![alt text](IMG/f6StartSweep.png) 
 ![alt text](IMG/f6EndSweep.png)
+
+## Result
+
+|           | ANN Model4 | EMD-ANN(Model4) First IMF | EMD-ANN(Model4) IMF and Residue | ANN Model6 | EMD-ANN(Model6) First IMF | EMD-ANN(Model6) IMF and Residue | LSTM Model1 | EMD-LSTM(Model1) First IMF | EMD-LSTM(Model1) IMF and Residue |
+|:---------:|:----------:|:-------------------------:|:-------------------------------:|:----------:|:-------------------------:|:-------------------------------:|:-----------:|:--------------------------:|:--------------------------------:|
+|  Accuracy |   0.8087   |           0.8789          |              0.8985             |   0.8399   |           0.8780          |              0.8898             |    0.8066   |           0.8971           |              0.8723              |
+|   Recall  |   0.9836   |           0.9803          |              0.9808             |   0.9821   |           0.9790          |              0.9847             |   0.97035   |           0.9750           |              0.9792              |
+| Precision |   0.5047   |           0.6193          |              0.6612             |   0.5499   |           0.6176          |              0.6412             |    0.5018   |           0.6594           |              0.6065              |
+| F-measure |   0.6670   |           0.7591          |              0.7899             |   0.7050   |           0.7574          |              0.7767             |    0.6615   |           0.7867           |              0.7491              |
+
