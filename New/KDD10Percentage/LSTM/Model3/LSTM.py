@@ -71,22 +71,16 @@ x_test = x_test.reshape((int(x_test.shape[0]/batch_size),batch_size,x_test.shape
 from keras.models import Sequential
 from keras.layers import Dense, Embedding, LSTM, Dropout
 from keras.utils import plot_model
-from keras.utils import to_categorical
-
-
-
 model = Sequential()
-model.add(LSTM(32,batch_input_shape=(None,100,4),return_sequences=True))
+model.add(LSTM(32,batch_input_shape=(None,100,4),return_sequences=False))
 model.add(Dropout(0.2))
-model.add(LSTM(32,return_sequences=False))
-model.add(Dropout(0.2))
-model.add(Dense(2,activation='softmax',init = 'uniform'))
-model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+model.add(Dense(100,activation='sigmoid',init = 'uniform'))
+model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 model.summary()
 
-#plot_model(model, show_shapes=True, to_file='../model3.png')
+#plot_model(model, show_shapes=True, to_file='../Model3')
 
-model.fit(x_train,  to_categorical(y_train).reshape(y_train.shape[0],y_train.shape[1],2), batch_size = 100, nb_epoch = 20)
+model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 
 
 # Predicting the Test set results

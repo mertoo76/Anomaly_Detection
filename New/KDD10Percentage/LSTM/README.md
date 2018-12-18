@@ -15,3 +15,12 @@ activation function between hidden layer = relu
 activation function output layer = sigmoid
 
 ![alt text](Model2Result.png)
+
+## Model 3
+![alt text](model3.png)
+
+activation function between hidden layer = relu
+
+activation function output layer = sigmoid
+
+![alt text](Model3Result.png)
