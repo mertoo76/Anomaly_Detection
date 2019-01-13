@@ -78,7 +78,7 @@ model.add(Dense(100,activation='sigmoid',init = 'uniform'))
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 model.summary()
 
-#plot_model(model, show_shapes=True, to_file='../Model3')
+#plot_model(model, show_shapes=True, to_file='../Model3.png')
 
 model.fit(x_train, y_train, batch_size = 100, nb_epoch = 20)
 
