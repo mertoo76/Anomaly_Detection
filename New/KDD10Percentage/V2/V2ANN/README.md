@@ -54,6 +54,16 @@ activation function output layer = sigmoid
 
 ![alt text](Model4_w100_FirstIMF_Result.png)
 
+## Model4-Window100-Hilbert Spectrum
+
+activation function between hidden layer = relu
+
+activation function output layer = sigmoid
+
+8/30/30/1 
+
+![alt text](Model4_w100_HilbertSpec_Result.png)
+
 
 ## Model6-Window100-First IMF and Residual
 ![alt text](Model6_w100_IMFResidual.png)
