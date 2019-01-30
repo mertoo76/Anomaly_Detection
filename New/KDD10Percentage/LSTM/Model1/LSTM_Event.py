@@ -539,8 +539,10 @@ evaluation_window_adp(y_test_statusChange,y_pred_statusChange,window=2)
 t1=np.arange(0,y_test.shape[0]*2,2)
 t2=np.arange(0,y_pred.shape[0]*2,2)
 
-plt.plot(t1[:1000],y_test[:1000])
+plt.plot(t1[7500:9000],y_test[7500:9000])
 
-plt.plot(t2[:1000],y_pred[:1000])
+plt.plot(t2[7500:9000],y_pred[7500:9000])
 
+plt.xlabel("Time (s)")
+plt.ylabel("Label")
 plt.show()

@@ -548,6 +548,8 @@ plt.plot(t1[7500:9000],y_test[7500:9000])
 
 plt.plot(t2[7500:9000],y_pred[7500:9000])
 
+plt.xlabel("Time (s)")
+plt.ylabel("Label")
 plt.show()
 
 #x_test=x_test.reshape((x_test.shape[0]*x_test.shape[1],4))
