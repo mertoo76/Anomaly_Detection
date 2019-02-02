@@ -45,7 +45,7 @@ f2 = deque(maxlen=max_length)
 f3 = deque(maxlen=max_length)
 f4 = deque(maxlen=max_length)
 
-times.append(0)
+#times.append(0)
 
 data_dict = {"F1(Count)":f1,
 "F2(srv_count)": f2,
@@ -58,13 +58,19 @@ data_dict = {"F1(Count)":f1,
 def update_obd_values(times, f1, f2, f3, f4):
 
     #times.append(time.time())
+    if len(times)==0:
+        times.append(0)
+        f1.append(x_test[times[-1]][0])
+        f2.append(x_test[times[-1]][1])
+        f3.append(x_test[times[-1]][2])
+        f4.append(x_test[times[-1]][3])
+    else:
+        times.append(times[-1]+1)
+        f1.append(x_test[times[-1]][0])
+        f2.append(x_test[times[-1]][1])
+        f3.append(x_test[times[-1]][2])
+        f4.append(x_test[times[-1]][3])        
     
-    
-    f1.append(x_test[times[-1]][0])
-    f2.append(x_test[times[-1]][1])
-    f3.append(x_test[times[-1]][2])
-    f4.append(x_test[times[-1]][3])        
-    times.append(times[-1]+1)
     
     return times, f1, f2, f3, f4
 
@@ -111,15 +117,33 @@ def update_graph(data_names,Interval):
         data = go.Scatter(
             x=list(times),
             y=list(data_dict[data_name]),
-            name='Scatter',
+            name='data',
             fill="tozeroy",
             fillcolor="#6897bb"
+            )
+        x0=[]
+        y0=[]
+        for i,item in enumerate(times):
+            if y_test[item] == 0:
+                x0.append(item)
+                y0.append(data_dict[data_name][i])
+                
+                
+        attack = go.Scatter(
+                x=x0,
+                y=y0,
+                mode='markers',
+                name='attack',
+                marker = dict(
+                        size = 10,
+                        color = 'rgba(152, 0, 0, .8)'
+                       )         
             )
 
         graphs.append(html.Div(dcc.Graph(
             id=data_name,
             animate=True,
-            figure={'data': [data],'layout' : go.Layout(xaxis=dict(range=[min(times),max(times)]),
+            figure={'data': [data,attack],'layout' : go.Layout(xaxis=dict(range=[min(times),max(times)]),
                                                         yaxis=dict(range=[min(data_dict[data_name]),max(data_dict[data_name])]),
                                                         margin={'l':50,'r':1,'t':45,'b':1},
                                                         title='{}'.format(data_name))}
