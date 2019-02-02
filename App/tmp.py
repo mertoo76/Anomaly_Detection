@@ -19,52 +19,46 @@ app = dash.Dash('vehicle-data')
 
 max_length = 50
 times = deque(maxlen=max_length)
-oil_temps = deque(maxlen=max_length)
-intake_temps = deque(maxlen=max_length)
-coolant_temps = deque(maxlen=max_length)
-rpms = deque(maxlen=max_length)
-speeds = deque(maxlen=max_length)
-throttle_pos = deque(maxlen=max_length)
+f1 = deque(maxlen=max_length)
+f2 = deque(maxlen=max_length)
+f3 = deque(maxlen=max_length)
+f4 = deque(maxlen=max_length)
 
-
-data_dict = {"Oil Temperature":oil_temps,
-"Intake Temperature": intake_temps,
-"Coolant Temperature": coolant_temps,
-"RPM":rpms,
-"Speed":speeds,
-"Throttle Position":throttle_pos}
+data_dict = {"F1(Count)":f1,
+"F2(srv_count)": f2,
+"F3(dst_host_count)": f3,
+"F4(dst_host_srv_count)":f4
+}
 
 
 
-def update_obd_values(times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos):
+def update_obd_values(times, f1, f2, f3, f4):
 
     times.append(time.time())
     if len(times) == 1:
         #starting relevant values
-        oil_temps.append(random.randrange(180,230))
-        intake_temps.append(random.randrange(95,115))
-        coolant_temps.append(random.randrange(170,220))
-        rpms.append(random.randrange(1000,9500))
-        speeds.append(random.randrange(30,140))
-        throttle_pos.append(random.randrange(10,90))
+        f1.append(random.randrange(180,230))
+        f2.append(random.randrange(95,115))
+        f3.append(random.randrange(170,220))
+        f4.append(random.randrange(1000,9500))
     else:
-        for data_of_interest in [oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos]:
+        for data_of_interest in [f1, f2, f3, f4]:
             data_of_interest.append(data_of_interest[-1]+data_of_interest[-1]*random.uniform(-0.0001,0.0001))
 
-    return times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos
+    return times, f1, f2, f3, f4
 
-times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos = update_obd_values(times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos)
+times, f1, f2, f3, f4 = update_obd_values(times, f1, f2, f3, f4)
 
 app.layout = html.Div([
     html.Div([
-        html.H2('Vehicle Data',
+        html.H2('Anomaly Detection',
                 style={'float': 'left',
                        }),
         ]),
     dcc.Dropdown(id='vehicle-data-name',
                  options=[{'label': s, 'value': s}
                           for s in data_dict.keys()],
-                 value=['Coolant Temperature','Oil Temperature','Intake Temperature'],
+                 value=['F1(Count)','F2(srv_count)','F3(dst_host_count)'],
                  multi=True
                  ),
     html.Div(children=html.Div(id='graphs'), className='row'),
@@ -82,7 +76,7 @@ app.layout = html.Div([
     )
 def update_graph(data_names,Interval):
     graphs = []
-    update_obd_values(times, oil_temps, intake_temps, coolant_temps, rpms, speeds, throttle_pos)
+    update_obd_values(times, f1, f2, f3, f4)
     if len(data_names)>2:
         class_choice = 'col s12 m6 l4'
     elif len(data_names) == 2:

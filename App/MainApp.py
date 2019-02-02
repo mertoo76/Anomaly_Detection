@@ -14,8 +14,29 @@ from collections import deque
 import plotly.graph_objs as go
 import random
 
+import pandas as pd
+import numpy as np
+
+
 app = dash.Dash('vehicle-data')
 
+
+#importing the dataset
+datasetTest = pd.read_csv('../New/KDD10Percentage/Data/corrected',',')
+
+x_test=datasetTest.iloc[:,22:24]
+x_test=np.append(x_test, datasetTest.iloc[:,31:33], axis=1)
+y_test = datasetTest.iloc[:, 41].values
+
+
+for i in range(len(y_test)):
+    if y_test[i] != 'normal.':
+        #print(y_prep[i])
+        y_test[i]='attack'
+    
+from sklearn.preprocessing import LabelEncoder
+labelencoder_y = LabelEncoder()
+y_test = labelencoder_y.fit_transform(y_test)
 
 max_length = 50
 times = deque(maxlen=max_length)
@@ -23,6 +44,8 @@ f1 = deque(maxlen=max_length)
 f2 = deque(maxlen=max_length)
 f3 = deque(maxlen=max_length)
 f4 = deque(maxlen=max_length)
+
+times.append(0)
 
 data_dict = {"F1(Count)":f1,
 "F2(srv_count)": f2,
@@ -34,17 +57,15 @@ data_dict = {"F1(Count)":f1,
 
 def update_obd_values(times, f1, f2, f3, f4):
 
-    times.append(time.time())
-    if len(times) == 1:
-        #starting relevant values
-        f1.append(random.randrange(180,230))
-        f2.append(random.randrange(95,115))
-        f3.append(random.randrange(170,220))
-        f4.append(random.randrange(1000,9500))
-    else:
-        for data_of_interest in [f1, f2, f3, f4]:
-            data_of_interest.append(data_of_interest[-1]+data_of_interest[-1]*random.uniform(-0.0001,0.0001))
-
+    #times.append(time.time())
+    
+    
+    f1.append(x_test[times[-1]][0])
+    f2.append(x_test[times[-1]][1])
+    f3.append(x_test[times[-1]][2])
+    f4.append(x_test[times[-1]][3])        
+    times.append(times[-1]+1)
+    
     return times, f1, f2, f3, f4
 
 times, f1, f2, f3, f4 = update_obd_values(times, f1, f2, f3, f4)
