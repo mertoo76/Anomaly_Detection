@@ -16,8 +16,8 @@ nums = as.numeric(myArgs)
 for( j in 1:ncol(x)){
   x[1:nrow(x),j]=nums[(10*(j-1)+1):(10*j)]
 }
-print("R:")
-print(x)
+#print("R:")
+#print(x)
 t=seq(0,(10*2)-2,2)
 
 an.error.occured <<- FALSE

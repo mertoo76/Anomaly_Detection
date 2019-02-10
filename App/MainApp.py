@@ -56,6 +56,8 @@ x_test=datasetTest.iloc[:,22:24]
 x_test=np.append(x_test, datasetTest.iloc[:,31:33], axis=1)
 y_test = datasetTest.iloc[:, 41].values
 
+x_test=x_test[800:]
+y_test=y_test[800:]
 
 for i in range(len(y_test)):
     if y_test[i] != 'normal.':
@@ -157,12 +159,13 @@ def update_graph(data_names,Interval):
         
         #Attack
         if times[-1] % 10 == 0:
+            print("------------------------attack--------------------------")
             x_test_tmp = np.zeros((10,4)) 
             x_test_tmp[:,0] = list(reversed([f1[-i] for i in range(1,11)]))
             x_test_tmp[:,1] = list(reversed([f2[-i] for i in range(1,11)]))
             x_test_tmp[:,2] = list(reversed([f3[-i] for i in range(1,11)]))
             x_test_tmp[:,3] = list(reversed([f4[-i] for i in range(1,11)]))
-            print("Python x_test_tmp: ", x_test_tmp)
+            #print("Python x_test_tmp: ", x_test_tmp)
             #call EMD here
             # Variable number of args in a list
             args = np.zeros(40)

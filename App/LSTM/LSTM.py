@@ -106,7 +106,7 @@ model.fit(x_train, y_train, nb_epoch = 20)
 
 
 #Save model
-save_Model(model)
+#save_Model(model)
 
 #Load Model
 model=load_Model()
