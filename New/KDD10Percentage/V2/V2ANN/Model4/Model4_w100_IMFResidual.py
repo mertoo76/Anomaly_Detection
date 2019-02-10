@@ -51,6 +51,25 @@ y_test=y_test[:x_test.shape[0]]
 y_test = labelencoder_y.fit_transform(y_test)
 
 
+def load_Model():
+    from keras.models import model_from_yaml
+    yaml_file = open('model.yaml', 'r')
+    loaded_model_yaml = yaml_file.read()
+    yaml_file.close()
+    loaded_model = model_from_yaml(loaded_model_yaml)
+    # load weights into new model
+    loaded_model.load_weights("model.h5")
+    print("Loaded model from disk")
+    return loaded_model
+    
+def save_Model(model):
+    model_yaml = model.to_yaml()
+    with open("model.yaml", "w") as yaml_file:
+        yaml_file.write(model_yaml)
+    # serialize weights to HDF5
+    model.save_weights("model.h5")
+    print("Saved model to disk")
+
 # Importing the Keras libraries and packages
 import keras
 from keras.models import Sequential
@@ -76,10 +95,23 @@ classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
+#from ann_visualizer.visualize import ann_viz;
+
+#ann_viz(classifier, title="ANN-EMD",filename="GraphVisu")
+
 #plot_model(classifier, show_shapes=True, to_file='../Model4_w100_IMFResidual.png')
 
 # Fitting the ANN to the Training set
 classifier.fit(x_train, y_train, batch_size = 10, nb_epoch = 20)
+
+
+#Save model
+save_Model(classifier)
+
+#Load Model
+classifier=load_Model()
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
 
 # Predicting the Test set results
 y_pred = classifier.predict(x_test)

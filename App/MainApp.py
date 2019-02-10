@@ -21,6 +21,34 @@ import numpy as np
 app = dash.Dash('vehicle-data')
 
 
+import subprocess
+#subprocess.check_call(['Rscript', 'EMD.R'], shell=False)
+# Define command and arguments
+command = 'Rscript'
+path2script = 'EMD.R'
+
+
+x0=[]
+y0=[]
+
+#importing Neural Network
+import keras
+def load_Model():
+    from keras.models import model_from_yaml
+    yaml_file = open('LSTM/model.yaml', 'r')
+    loaded_model_yaml = yaml_file.read()
+    yaml_file.close()
+    loaded_model = model_from_yaml(loaded_model_yaml)
+    # load weights into new model
+    loaded_model.load_weights("LSTM/model.h5")
+    print("Loaded model from disk")
+    return loaded_model
+
+#Load Model
+model=load_Model()
+model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+
 #importing the dataset
 datasetTest = pd.read_csv('../New/KDD10Percentage/Data/corrected',',')
 
@@ -39,11 +67,11 @@ labelencoder_y = LabelEncoder()
 y_test = labelencoder_y.fit_transform(y_test)
 
 max_length = 50
-times = deque(maxlen=max_length)
-f1 = deque(maxlen=max_length)
-f2 = deque(maxlen=max_length)
-f3 = deque(maxlen=max_length)
-f4 = deque(maxlen=max_length)
+times = deque(maxlen=max_length) #time information
+f1 = deque(maxlen=max_length) #Feature1
+f2 = deque(maxlen=max_length) #Feature2 
+f3 = deque(maxlen=max_length) #Feature3
+f4 = deque(maxlen=max_length) #Feature4
 
 #times.append(0)
 
@@ -64,12 +92,14 @@ def update_obd_values(times, f1, f2, f3, f4):
         f2.append(x_test[times[-1]][1])
         f3.append(x_test[times[-1]][2])
         f4.append(x_test[times[-1]][3])
+        
     else:
         times.append(times[-1]+1)
         f1.append(x_test[times[-1]][0])
         f2.append(x_test[times[-1]][1])
         f3.append(x_test[times[-1]][2])
-        f4.append(x_test[times[-1]][3])        
+        f4.append(x_test[times[-1]][3])
+             
     
     
     return times, f1, f2, f3, f4
@@ -102,6 +132,8 @@ app.layout = html.Div([
      dash.dependencies.Input('graph-update', 'n_intervals')]
     )
 def update_graph(data_names,Interval):
+    global x0,y0,command,path2script,model
+    
     graphs = []
     update_obd_values(times, f1, f2, f3, f4)
     if len(data_names)>2:
@@ -121,14 +153,62 @@ def update_graph(data_names,Interval):
             fill="tozeroy",
             fillcolor="#6897bb"
             )
+        
+        
+        #Attack
+        if times[-1] % 10 == 0:
+            x_test_tmp = np.zeros((10,4)) 
+            x_test_tmp[:,0] = list(reversed([f1[-i] for i in range(1,11)]))
+            x_test_tmp[:,1] = list(reversed([f2[-i] for i in range(1,11)]))
+            x_test_tmp[:,2] = list(reversed([f3[-i] for i in range(1,11)]))
+            x_test_tmp[:,3] = list(reversed([f4[-i] for i in range(1,11)]))
+            print("Python x_test_tmp: ", x_test_tmp)
+            #call EMD here
+            # Variable number of args in a list
+            args = np.zeros(40)
+            for i in range(x_test_tmp.shape[1]):
+                args[10*i:10*(i+1)]=x_test_tmp[:,i]
+            # Build subprocess command
+            cmd = [command, path2script] + [str(i) for i in args]
+            # check_output will run the command and store to result
+            #x = subprocess.check_output(cmd, universal_newlines=True)
+            #print("Python args: ",args)
+            subprocess.call(cmd, universal_newlines=True,shell=True)
+            
+            #Get EMD info
+            emd = pd.read_csv('emd.csv',',')
+            emd=emd.values
+            #print("EMD Values: Leng:",emd.shape[0]," ",emd.shape[1]," ",emd,"\n")
+
+            emd = emd.reshape((1,10,emd.shape[1]))
+            # Predicting the Test set results
+            y_pred = model.predict(emd)
+            y_pred = (y_pred > 0.5)
+            y_pred=y_pred.reshape((y_pred.shape[0]*y_pred.shape[1]))
+            print("Prediction: ", y_pred)
+        
+        
+            y_pred=y_pred*1
+            for i,item in enumerate(times):
+                newIt=np.asarray(item)%10
+                if y_pred[newIt.tolist()] == 0:
+                    x0.append(item)
+                    y0.append(data_dict[data_name][i])            
+
+             
+        """    
         x0=[]
         y0=[]
         for i,item in enumerate(times):
             if y_test[item] == 0:
                 x0.append(item)
                 y0.append(data_dict[data_name][i])
-                
-                
+        """     
+        
+        index=[i for i in range(len(x0)) if x0[i] in list(times) ]
+        x0=list(np.asarray(x0)[index])
+        y0=list(np.asarray(y0)[index])
+        #print("Y: ",y0,"\n")
         attack = go.Scatter(
                 x=x0,
                 y=y0,
