@@ -1,5 +1,7 @@
 # Anomaly_Detection
 
+[Paper Link](https://github.com/mertoo76/Anomaly_Detection/blob/master/paper.pdf)
+
 ## ToDo
 
 1-) 2 IMFs -> ANN(Model4 and Model6) LSTM(Model1)
